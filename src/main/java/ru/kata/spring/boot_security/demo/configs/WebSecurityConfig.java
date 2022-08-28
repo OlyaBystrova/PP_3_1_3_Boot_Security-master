@@ -3,11 +3,13 @@ package ru.kata.spring.boot_security.demo.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
@@ -41,9 +43,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/login", "/error").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/auth/login", "/error").permitAll()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/auth/login")
@@ -62,9 +64,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 //    @Bean
+//    DaoAuthenticationProvider authenticationProvider(){
+//    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+//    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+//    daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+//    return daoAuthenticationProvider;
+//}
+//
+//    @Bean
 //    public PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
+
+
+    ///////////////////////////////////////
 
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
@@ -100,9 +113,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return provider;
 //    }
 
-
-
-//    @Override
+//    @Autowired
 //    protected void configure(AuthenticationManagerBuilder auth) {
 //        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 //        provider.setPasswordEncoder(passwordEncoder());
@@ -114,12 +125,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
-//    @Bean
-//    DaoAuthenticationProvider authenticationProvider(){
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-//        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-//
-//        return daoAuthenticationProvider;
-//    }
+
 }

@@ -33,19 +33,6 @@ public class AdminController {
         return "admin";
     }
 
-//    @PostMapping("/new")
-//    public String newUser(Model model) {
-//        model.addAttribute("user", new User());
-//        model.addAttribute("roles", roleService.findAllRoles());
-//        return "newuser";
-//    }
-//
-//    @PostMapping
-//    public String create(@ModelAttribute("user") User user) {
-//        userService.save(user);
-//        return "redirect:/admin";
-//    }
-
 
     @GetMapping("/new")
     public String newUser(@ModelAttribute("user") User user, Model model){
@@ -70,6 +57,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+
     @DeleteMapping("/delete/{id}")
 //    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.POST})
     public String delete(@PathVariable("id") int id) {
@@ -77,24 +65,13 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") int id){
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("listRoles",roleService.findAllRoles());
         return "edituser";
     }
-
-//    @PatchMapping("{id}")
-//    public String update(@ModelAttribute("user") @Valid User user, @PathVariable("id") int id,
-//                         BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "edituser";
-//        } else {
-////            user.setRoles(roleService.findRoleById(roles));
-//            userService.save(user);
-//            return "redirect:/admin";
-//        }
-//    }
 
     @PatchMapping("{id}")
     public String update(@RequestParam("role") ArrayList<Integer> roles,
@@ -108,116 +85,4 @@ public class AdminController {
         userService.save(user);
         return "redirect:/admin";
     }
-
-//    @PutMapping("/edit")
-//    public String pageEdit(@RequestParam("role")ArrayList<Integer> roles,
-//                           @Valid User user,
-//                           @PathVariable("id") int id,
-//                           BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "edituser";
-//        } else {
-//            user.setRoles(roleService.findRoleById(roles));
-//            userService.save(user);
-//            return "redirect:/admin";
-//        }
-//    }
-
-//    @PatchMapping(params = "/edit")
-////    @RequestMapping(value = "/admin/edit", method = {RequestMethod.PATCH})
-////      @RequestMapping(value = "/edit",
-////        produces = "application/json",
-////        method=RequestMethod.PATCH)
-//    public String pageEdit(@RequestParam("role")ArrayList<Integer> roles,
-//                           @Valid User user,
-//                           BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "edituser";
-//        } else {
-//            user.setRoles(roleService.findRoleById(roles));
-//            userService.save(user);
-//            return "redirect:/admin";
-//        }
-//    }
-
-
-///////////////
-
-
-//    @PostMapping("/new")
-//    public String newUser(Model model) {
-//        model.addAttribute("users", new User());
-//        model.addAttribute("roles", roleService.findAllRoles());
-//        return "new";
-//    }
-
-
-//    @PostMapping()
-//    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
-//        if (bindingResult.hasErrors())
-//            return "new";
-//        userService.save(user);
-//        return "redirect:/admin";
-//    }
-
-//////////////
-
-
-// Получаем пользователя по id и передаем в представление
-//    @GetMapping("/{id}")
-//    public String show(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("user", userService.getById(id));
-//        return "show";
-//    }
-
-//    @GetMapping("/new")
-//    public String newUser(@ModelAttribute("user") User user){
-//        return "new";
-//    }
-//
-//    @PostMapping()
-//    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
-//        if (bindingResult.hasErrors())
-//            return "new";
-//        userService.save(user);
-//        return "redirect:/admin";
-//    }
-
-//    @GetMapping("/{id}/edit")
-//    public String edit(Model model, @PathVariable("id") int id){
-//        model.addAttribute("user", userService.getById(id));
-//        return "edit";
-//    }
-
-//    @PatchMapping("/{id}")
-//    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-//                         @PathVariable("id") int id) {
-//        if (bindingResult.hasErrors())
-//            return "edit";
-//
-//        userService.update((long) id, user);
-//        return "redirect:/users/list";
-//    }
-
-//    @DeleteMapping("/{id}")
-//    public String delete(@PathVariable("id") int id){
-//        userService.deleteById(id);
-//        return "redirect:/users/list";
-//    }
-
-//    @DeleteMapping("/{id}")
-//    public String delete(@PathVariable("id") int id) {
-//        userService.deleteById(id);
-//        return "redirect:/users/list";
-//    }
-
-//    @GetMapping("/showUserInfo")
-//    public String showUserInfo() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        org.springframework.security.core.userdetails.UserDetails userDetails = (org.springframework.security.core.userdetails.UserDetails) authentication.getPrincipal();
-//        System.out.println(userDetails.getUsername());
-//
-//        return "user";
-//    }
-
 }
