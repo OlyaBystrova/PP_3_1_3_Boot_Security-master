@@ -30,13 +30,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.successUserHandler = successUserHandler;
     }
 
-    //     Настраиваем аутентификацию
-    @Override
-    @Autowired
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userServiceImpl);
-//                .passwordEncoder(passwordEncoder());
-    }
+////////    ДЛЯ ЗАПУСКА БЕЗ passwordEncoder //////
+//    @Override
+//    @Autowired
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userServiceImpl);
+////                .passwordEncoder(passwordEncoder());
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,40 +58,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
-
-//    @Bean
-//    DaoAuthenticationProvider authenticationProvider(){
-//    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-//    daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-//    return daoAuthenticationProvider;
-//}
-//
+////////    ДЛЯ ЗАПУСКА БЕЗ passwordEncoder //////
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
+//        return NoOpPasswordEncoder.getInstance();
 //    }
 
+    @Bean
+    DaoAuthenticationProvider authenticationProvider(){
+    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+    daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+    return daoAuthenticationProvider;
+}
 
-    ///////////////////////////////////////
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+    /////////////////////////////////////// ЧЕРНОВИК
 
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
 //        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 //    }
 
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                .withUser("user").password("user").roles("USER").and()
-//                .withUser("admin").password("admin").roles("USER","ADMIN");
-//    }
 
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
