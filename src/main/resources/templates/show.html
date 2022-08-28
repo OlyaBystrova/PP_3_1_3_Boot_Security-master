@@ -1,44 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Show</title>
+    <meta charset="UTF-8"/>
+    <title>User</title>
+    <style>
+        table th, table td, form {
+            padding: 10px 5px;
+            font-family: sans-serif;
+            font-size: 14px;
+            border-style: solid;
+            border-width: 1px;
+            background-color: white;
+        }
+        .buttonLogout {
+            padding: 5px;
+            background-color: darkgrey;
+        }
+    </style>
 </head>
 <body>
-
+<h1>User's data</h1>
 <table border="1">
     <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Country</th>
-        <th>Username</th>
-        <th>Password</th>
-        </td>
+        <th th:width="30">ID</th>
+        <th th:width="100">Name</th>
+        <th th:width="50">Age</th>
+        <th th:width="100">Country</th>
+        <th th:width="100">Username</th>
+        <th th:width="100">Password</th>
+        <th th:width="100">Role</th>
     </tr>
 
-    <tr>
-        <td><p th:text="${user.getName()}">VALUE</p></td>
-        <td><p th:text="${user.getAge()}">VALUE</p></td>
-        <td><p th:text="${user.getCountry()}">VALUE</p></td>
-        <td><p th:text="${user.getUsername()}">VALUE</p></td>
-        <td><p th:text="${user.getPassword()}">VALUE</p></td>
-    </tr>
+    <tr th:each="user : ${user}"> </tr>
+
+        <td th:utext="${user.getId()}">Id</td>
+        <td th:utext="${user.name}">Name</a></td>
+        <td th:utext="${user.age}">Age</td>
+        <td th:utext="${user.country}">Country</td>
+        <td th:utext="${user.username}">Username</td>
+        <td th:utext="${user.password}">Password</td>
+        <td th:utext="${user.roles}">Role</td>
+<!--        <td>-->
+
 </table>
-
-<br/>
-<hr/>
-
-<form th:method="GET" th:action="@{/users/{id}/edit(id=${user.getId()})}">
-    <input type="submit" value="Edit"/>
-</form>
-
-<form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
-
-<form th:method="GET" th:action="@{/users/list}">
-    <input type="submit" value="Back to list"/>
-</form>
-
+<br>
+<button class="buttonLogout" onclick="window.location.href = '/logout';">Logout</button>
 </body>
 </html>
