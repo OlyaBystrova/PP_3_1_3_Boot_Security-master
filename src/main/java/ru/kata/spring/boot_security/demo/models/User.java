@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.models;
 
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -31,11 +30,9 @@ public class User implements UserDetails {
     @Max(value = 122, message = "Age should be less than 122")
     private int age;
 
-
     @Column(name = "country")
     @NotEmpty(message = "Country should not be empty")
     private String country;
-
 
     @Column(name = "username")
     @NotEmpty(message = "Username should not be empty")
@@ -44,10 +41,8 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     @NotEmpty(message = "Password should not be empty")
-    @Size(min = 4, max = 20, message = "Password should be in the range from 4 to 20 characters")
     private String password;
 
-    // Конструктор по умолчанию нужен для Spring
     public User() {
     }
 
@@ -75,12 +70,6 @@ public class User implements UserDetails {
                         .collect(Collectors.toSet());
         return authorities;
     }
-//
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getAuthority())).collect(Collectors.toList());
-//    }
-
 
     @Override
     public String getPassword() {
@@ -111,7 +100,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-//////////////////////
+
 
     public int getId() {
         return id;
@@ -161,18 +150,6 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", age=" + age +
-//                ", country='" + country + '\'' +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                '}';
-//    }
 
     @Override
     public String toString() {

@@ -13,7 +13,7 @@
             background-color: white;
         }
         .buttonEdit {
-            background: gold;
+            background: mediumseagreen;
             position: relative;
             left: 50%;
             transform: translate(-50%, 0);
@@ -22,14 +22,15 @@
             padding: 5px;
             background-color: darkgrey;
         }
-
+        .buttonGoBack {
+            padding: 5px;
+            background-color: lightsteelblue;
+        }
     </style>
 </head>
 <body>
-<h1>Edit user</h1>
-<!--<form th:method="PATCH" th:action="@{/admin/edit/{}" th:object="${user}">-->
+<b> <font size="1"> <h1> Edit user </h1></font> </b>
 <form th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
-<!--<form th:method="PATCH" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">-->
     <table>
         <tr>
             <td>
@@ -96,12 +97,17 @@
         <br>
         <tr>
             <td>
-                <input class ="buttonEdit" type="submit" value="Edit user"/>
+                <input class ="buttonEdit" type="submit" value="Save user"/>
             </td>
         </tr>
     </table>
 </form>
 <br>
 <button class="buttonLogout" onclick="window.location.href = '/logout';">Logout</button>
+
+<br>
+<br>
+<button class="buttonGoBack" onclick="window.location.href = '/admin';">Back to list</button>
+
 </body>
 </html>

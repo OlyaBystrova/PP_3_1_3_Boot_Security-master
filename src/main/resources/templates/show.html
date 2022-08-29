@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-<h1>User's data</h1>
+<b> <font size="1"> <h1> User's data </h1></font> </b>
 <table border="1">
     <tr>
         <th th:width="30">ID</th>
@@ -28,7 +28,6 @@
         <th th:width="100">Country</th>
         <th th:width="100">Username</th>
         <th th:width="100">Password</th>
-        <th th:width="100">Role</th>
     </tr>
 
     <tr th:each="user : ${user}"> </tr>
@@ -39,8 +38,6 @@
         <td th:utext="${user.country}">Country</td>
         <td th:utext="${user.username}">Username</td>
         <td th:utext="${user.password}">Password</td>
-        <td th:utext="${user.roles}">Role</td>
-<!--        <td>-->
 
 </table>
 <br>

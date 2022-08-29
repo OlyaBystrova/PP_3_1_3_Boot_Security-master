@@ -23,16 +23,12 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-//    private final RoleServiceImpl userServiceImpl;
 
-
-// Все пользователи из списка
     @GetMapping()
     public String pageForAdmin(Model model) {
         model.addAttribute("users", userService.findAll());
         return "admin";
     }
-
 
     @GetMapping("/new")
     public String newUser(@ModelAttribute("user") User user, Model model){
@@ -57,14 +53,11 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-
     @DeleteMapping("/delete/{id}")
-//    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.POST})
     public String delete(@PathVariable("id") int id) {
         userService.deleteById(id);
         return "redirect:/admin";
     }
-
 
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") int id){
