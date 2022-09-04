@@ -34,10 +34,9 @@ public class User implements UserDetails {
     @NotEmpty(message = "Country should not be empty")
     private String country;
 
-    @Column(name = "username")
+    @Column(name = "email")
     @NotEmpty(message = "Username should not be empty")
-    @Size(min = 1, max = 10, message = "Username should be in the range from 1 to 10 characters")
-    private String username;
+    private String email;
 
     @Column(name = "password")
     @NotEmpty(message = "Password should not be empty")
@@ -52,12 +51,11 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set <Role> roles;
 
-
-    public User(String name, int age, String country, String username, String password, Set<Role> roles) {
+    public User(String name, int age, String country, String email, String password, Set<Role> roles) {
         this.name = name;
         this.age = age;
         this.country = country;
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.roles = roles;
     }
@@ -71,6 +69,7 @@ public class User implements UserDetails {
         return authorities;
     }
 
+
     @Override
     public String getPassword() {
         return password;
@@ -78,7 +77,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email ;
     }
 
     @Override
@@ -110,10 +109,6 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getName() {
         return name;
     }
@@ -138,6 +133,13 @@ public class User implements UserDetails {
         this.country = country;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -158,7 +160,7 @@ public class User implements UserDetails {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", country='" + country + '\'' +
-                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
                 '}';

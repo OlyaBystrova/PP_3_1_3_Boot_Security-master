@@ -27,7 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -36,14 +35,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
-                .formLogin().loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login")
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
                 .successHandler(successUserHandler)
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/auth/login")
+                .logoutSuccessUrl("/login")
                 .permitAll();
     }
 }

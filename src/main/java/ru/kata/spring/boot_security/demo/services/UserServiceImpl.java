@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(s);
+        User user = userRepository.findUserByEmail(s);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     @Transactional
-    public User findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 
     @Override
@@ -47,9 +47,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public void save(User user) {
-        userRepository.save(passwordCoder(user));
-    }
+    public void save(User user) { userRepository.save(passwordCoder(user)); }
 
     @Override
     public void deleteById(int id) {
@@ -63,7 +61,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public User passwordCoder(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (!passwordEncoder.matches(passwordEncoder.encode(user.getPassword()), user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return user;
     }
 }
