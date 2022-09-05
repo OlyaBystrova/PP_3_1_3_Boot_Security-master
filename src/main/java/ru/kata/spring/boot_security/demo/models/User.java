@@ -8,6 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -146,6 +147,9 @@ public class User implements UserDetails {
     }
 
     public Set<Role> getRoles() {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
         return roles;
     }
 

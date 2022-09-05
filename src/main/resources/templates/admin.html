@@ -32,8 +32,7 @@
 <!--                            Use <a>s or <button>s to create actionable list group items with hover-->
                             <a class="navbar-brand text-white font-weight-bold" th:text="${this_user.getUsername()}"></a>
                             <a class="navbar-brand text-white">with roles: </a>
-                            <a class="navbar-brand text-white" th:each="role : ${this_user.getRoles()}"
-                               th:text="${role.getRole()}"></a>
+                            <a class="navbar-brand text-white" th:text="${thisUserRole}"></a>
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
@@ -336,21 +335,21 @@
                                 </p>
                                 <p>
                                     <label for="deleteAge"><strong>Age</strong>
-                                        <input class="form-control" type="number" name="lastName" id="deleteAge" th:value="*{age}" disabled>
+                                        <input class="form-control" type="number" name="age" id="deleteAge" th:value="*{age}" disabled>
                                     </label>
                                 </p>
                                 <p>
                                     <label for="deleteCountry"><strong>Country</strong>
-                                        <input class="form-control" type="text" name="age" id="deleteCountry" th:value="*{country}" disabled>
+                                        <input class="form-control" type="text" name="country" id="deleteCountry" th:value="*{country}" disabled>
                                     </label>
                                 </p>
                                 <p>
                                     <label for="deletePassword"><strong>Password</strong>
-                                        <input class="form-control" type="text" name="email" id="deletePassword" th:value="*{password}" disabled>
+                                        <input class="form-control" type="text" name="password" id="deletePassword" th:value="*{password}" disabled>
                                     </label>
                                 </p>
                                 <label class="container-fluid col-6" for="deleteRole"><strong>Role</strong>
-                                    <select class="form-control" id="deleteRole" name="roleSet" multiple size="2" disabled>
+                                    <select class="form-control" id="deleteRole" name="roles" multiple size="2" disabled>
                                         <div th:each="role : ${roles}">
                                             <option th:text="${role.getRole()}"
                                                     th:selected="${deleteUser.getRoles().contains(role.getRole())}">

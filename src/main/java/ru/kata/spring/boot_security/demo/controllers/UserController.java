@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,6 @@ public class UserController {
     @GetMapping()
     public String showUserInfo(Model model, Principal principal) {
 
-        // В админ контроллере стрингбилдер не использовался, указаны разные способы
         StringBuilder roles = new StringBuilder();
         for (Role role : userService.findUserByEmail(principal.getName()).getRoles()) {
             roles.append(role.toString());

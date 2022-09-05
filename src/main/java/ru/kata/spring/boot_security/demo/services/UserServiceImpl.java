@@ -42,16 +42,24 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public User getById(int id) {
-        return userRepository.getById(id);
-    }
-
-    @Override
     public void save(User user) { userRepository.save(passwordCoder(user)); }
 
     @Override
     public void deleteById(int id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void update(int id, User updateUser) {
+        User user = userRepository.getById(id);
+        if (updateUser.getPassword().equals(user.getPassword())) {
+            userRepository.save(updateUser);
+        } else {
+            String pass = passwordEncoder.encode(updateUser.getPassword());
+            updateUser.setPassword(pass);
+            userRepository.save(updateUser);
+        }
     }
 
     @Override
@@ -61,9 +69,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public User passwordCoder(User user) {
-        if (!passwordEncoder.matches(passwordEncoder.encode(user.getPassword()), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
         return user;
     }
 }
